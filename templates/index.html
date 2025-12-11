@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span class="logo-text">SmartRec<span class="gradient-text">AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Analytics</a>
+                <a href="#" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="badge">✨ AI-Powered Recommendations</div>
+                <h1 class="main-title">
+                    Discover Products
+                    <span class="gradient-text">Made for You</span>
+                </h1>
+                <p class="hero-description">
+                    Our intelligent recommendation engine analyzes user behavior patterns to deliver 
+                    personalized product suggestions tailored to individual preferences.
+                </p>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-info">
+                    <h3>{{ stats.total_products }}</h3>
+                    <p>Total Products</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h3>{{ stats.total_users }}</h3>
+                    <p>Active Users</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🛒</div>
+                <div class="stat-info">
+                    <h3>{{ stats.total_purchases }}</h3>
+                    <p>Total Purchases</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="recommendation-section">
+            <div class="section-header">
+                <h2>Get Your Personalized Recommendations</h2>
+                <p>Select a user to view their purchase history and AI-generated suggestions</p>
+            </div>
+
+            <div class="rec-card">
+                <div class="rec-card-left">
+                    <div class="icon-wrapper">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Choose a User</h3>
+                        <p>Select from {{ users|length }} registered users</p>
+                    </div>
+                </div>
+                
+                <form class="rec-form" action="{{ url_for('recommend') }}" method="POST">
+                    <div class="form-group">
+                        <label for="user">User ID</label>
+                        <div class="select-wrapper">
+                            <select id="user" name="user" required>
+                                <option value="" disabled selected>Select a user...</option>
+                                {% for u in users %}
+                                <option value="{{u}}">User #{{u}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="select-arrow">▼</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Generate Recommendations</span>
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section class="categories-section">
+            <h3>Available Categories</h3>
+            <div class="category-chips">
+                {% for cat in categories %}
+                <span class="category-chip">{{ cat }}</span>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 SmartRecAI. Powered by Machine Learning.</p>
+    </footer>
+</body>
+</html>

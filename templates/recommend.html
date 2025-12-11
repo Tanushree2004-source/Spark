@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations | User {{ user }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span class="logo-text">SmartRec<span class="gradient-text">AI</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Results</a>
+                <a href="#" class="nav-link">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="results-header">
+            <div class="user-badge">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <h1>User #{{ user }}</h1>
+                    <p>Personalized Recommendation Results</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="{{ url_for('home') }}" class="action-btn secondary">
+                    <svg class="btn-icon-left" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Home
+                </a>
+                <a href="{{ url_for('home') }}" class="action-btn primary">
+                    Try Another User
+                </a>
+            </div>
+        </section>
+
+        <section class="results-grid">
+            <div class="result-column">
+                <div class="column-header purchased-header">
+                    <div class="header-left">
+                        <div class="header-icon">📋</div>
+                        <h2>Purchase History</h2>
+                    </div>
+                    <div class="count-badge purchased-badge">{{ purchased|length }}</div>
+                </div>
+                <div class="products-list">
+                    {% if purchased %}
+                        {% for item in purchased %}
+                        <div class="product-item purchased-item">
+                            <div class="product-icon">✅</div>
+                            <div class="product-name">{{ item }}</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <div class="empty-icon">📦</div>
+                            <p>No purchase history found</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="result-column">
+                <div class="column-header recommended-header">
+                    <div class="header-left">
+                        <div class="header-icon">✨</div>
+                        <h2>AI Recommendations</h2>
+                    </div>
+                    <div class="count-badge recommended-badge">{{ recommended|length }}</div>
+                </div>
+                <div class="products-list">
+                    {% if recommended %}
+                        {% for item in recommended %}
+                        <div class="product-item recommended-item">
+                            <div class="product-icon">🎁</div>
+                            <div class="product-name">{{ item }}</div>
+                            <div class="new-tag">NEW</div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <div class="empty-icon">🤔</div>
+                            <p>No recommendations available</p>
+                            <small>Try selecting a different user</small>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <section class="insights-section">
+            <div class="insight-card">
+                <div class="insight-icon">📊</div>
+                <div class="insight-content">
+                    <h4>Smart Matching</h4>
+                    <p>Recommendations based on similar user purchase patterns</p>
+                </div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">🤖</div>
+                <div class="insight-content">
+                    <h4>AI-Powered</h4>
+                    <p>Machine learning algorithms analyze behavior trends</p>
+                </div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">🎯</div>
+                <div class="insight-content">
+                    <h4>Personalized</h4>
+                    <p>Tailored suggestions unique to each user profile</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 SmartRecAI. Powered by Machine Learning.</p>
+    </footer>
+</body>
+</html>
